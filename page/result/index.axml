@@ -1,0 +1,297 @@
+<!--pages/resule-search  -->
+<view class='search'>
+  <view class='search-body'>
+        <icon type="search" size="12" class="search-icon"></icon>
+        <input class="search-input" 
+          name="searchinput"
+          placeholder="请输入完整零件号"
+          focus="{{input_focus}}"
+          value="{{inputdata}}"
+          onInput="inputchange"
+          />
+        <icon type="cancel" size="20" class="{{inputclear?'cancel-icon':'none-icon'}}" onTap="inputClear" ></icon>
+        <view class="inputclear-icon" ></view>
+        <view class="search-btn" onTap="goSearch">查询</view>
+  </view>
+</view>
+
+<!--pages/search history  -->
+<view class='{{searched ?"notshow":"search-history"}}'>
+  <view class='historytitle'>历史记录</view>
+  <block a:for="{{history}}" a:for-index="index" > 
+    <view class="search-h-click" onTap="getpartnum" data-world="{{item}}">{{item}}</view>
+  </block>
+</view>
+<!--pages/search wrong  -->
+<view class='{{searched && (getresult==false) ?"show-wrong":"notshow"}}'>
+  <view  class='{{manybrand?"notshow":"wrong-mes"}}'>
+    抱歉，没有找到与此零件号相关的信息
+    <view class="home-img">
+      <image src="{{imgbottom}}" class="imagetwo" mode="aspectFit"></image>
+    </view>
+  </view>
+
+  <!--pages/search many brand  -->
+  <view class='{{manybrand?"show-brand":"notshow"}}'>
+    <view class='brand-title'>请选择品牌</view>
+    <view class='brand-content'>
+        <block a:for="{{brandlist}}" a:key="{{index}}" >
+          <view class='brand-imgname'>
+            <image src="https://007vin.com{{item.img}}" 
+              class="brand-img"
+              mode="aspectFit"
+              onTap="getbrand" 
+              data-brand="{{item.brand}}"></image>
+              <text>{{item.name}}</text>
+          </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!--pages/resule/index.axml-->
+<view class='{{searched && getresult ?"result":"notshow"}}' >
+  <view class="result-left">
+      <view class="result-left-position">
+        <block a:for="{{headlist}}" a:key="{{index}}">
+          <view class="{{clickindex==index?'resule-left-listclick':'resule-left-list'}}" onTap="scrollToViewFn" data-id="{{clickid[index]}}" data-index="{{index}}">{{item}}</view>
+        </block>
+      </view>
+  </view>
+
+   <scroll-view class="result-right"  scroll-y="true" scroll-with-animation="true" bindscrolltolower="bindSellMore"> 
+   <!-- <scroll-view class="result-right" scroll-into-view="{{toView}}" scroll-y="true" scroll-with-animation="true"> -->
+     <!-- <image src="{{imgbrand}}" class="brands"></image> -->
+    <view class='{{dataMes.length > 0 && toView=="gomessage" ? "result-right-list result-right-message":"notshow"}}' id="gomessage">
+      <view class="nav-show">
+        <view class="nav-show-block"></view>
+        <text>基础信息</text>
+      </view>
+      <block a:for="{{dataMes}}" a:key="{{index}}">
+        <view class="list-content">
+          <text selectable class="list-left">{{item.key}}</text>
+          <text selectable class="list-right">{{item.value}}</text>
+        </view>
+      </block>
+    </view> 
+
+
+     <view class= '{{dataPrice.length > 0 && (toView=="goprice") ? "result-right-list result-right-price":"notshow"}}' id="goprice">
+      <view class="nav-show">
+        <view class="nav-show-block"></view>
+        <text>渠道价格</text>
+      </view>
+
+      <block a:for="{{dataPrice}}" a:key="{{index}}">
+        <view class="result-right-listcontent">
+          <block a:for="{{leftlist}}" a:key="cell" a:for-item="cellitem" a:for-index="cellindex">
+            <view class="list-content">
+              <text selectable class="list-left">{{cellitem}}</text>
+              <text selectable class="list-right">{{item[rightlist[cellindex]]}}</text>
+            </view>
+          </block> 
+        </view>
+      </block>
+    </view> 
+
+
+     <view class='{{dataReplace.length > 0 && (toView=="goreplace") ? "result-right-list result-right-replace":"notshow"}}' id="goreplace">
+      <view class="nav-show">
+        <view class="nav-show-block"></view>
+        <text>替换件</text>
+      </view>
+
+      <block a:for="{{dataReplace}}" a:key="{{index}}">
+        <view class="result-right-listcontent">
+          <block a:for="{{replacelist}}" a:key="cell" a:for-item="cellitem" a:for-index="cellindex">
+            <view class="list-content">
+              <text selectable class="list-left">{{cellitem}}</text>
+              <text selectable class="list-right">{{item[replacerightlist[cellindex]]}}</text>
+            </view>
+          </block> 
+        </view>
+      </block>
+    </view> 
+
+
+     <view class='{{dataModule.length > 0 && (toView=="gomodule") ? "result-right-list result-right-module":"notshow"}}' id="gomodule">
+      <view class="nav-show">
+        <view class="nav-show-block"></view>
+        <text>组件</text>
+      </view>
+
+      <block a:for="{{dataModule}}" a:key="{{index}}">
+        <view class="result-right-listcontent">
+          <block a:for="{{modulelist}}" a:key="cell" a:for-item="cellitem" a:for-index="cellindex">
+            <view class="list-content">
+              <text selectable class="list-left">{{cellitem}}</text>
+              <text selectable class="list-right">{{item[modulerightlist[cellindex]]}}</text>
+            </view>
+          </block> 
+        </view>
+      </block>
+    </view> 
+
+
+      <view class='{{dataTeach.length > 0 && (toView=="goteach") ? "result-right-list result-right-technology":"notshow"}}' id="goteach">
+      <view class="nav-show">
+        <view class="nav-show-block"></view>
+        <text>技术信息</text>
+      </view>
+      
+      <view class="result-right-listtech">
+        <block a:for="{{dataTeach}}" a:key="{{index}}">
+          <view class="list-content">
+            <text selectable class="list-left">{{item}}</text>
+            <text selectable class="list-right"></text>
+          </view>
+        </block>
+      </view>
+    </view> 
+
+    <view class='{{dataTechnology.length > 0 && (toView=="gotechnology") ? "result-right-list result-right-module":"notshow"}}' id="gotechnology">
+      <view class="nav-show">
+        <view class="nav-show-block"></view>
+        <text>适用车型</text>
+      </view> 
+
+      <block a:for="{{dataTechnology}}" a:key="{{index}}">
+        
+          <block a:for="{{dataTechnology[index]}}" a:key="cell" a:for-item="cellitem" a:for-index="cellindex">
+            <view class="result-right-listcontent">
+              <block a:for="{{technologylist}}" a:key="{{index}}">
+                <view class="list-content">
+                  <text selectable class='list-left'>{{item}}</text>
+                  <text selectable class="list-right">{{cellitem[technologyrightlist[index]]}}</text>
+                </view>
+              </block>
+            </view>
+          </block> 
+      </block>
+    </view> 
+
+
+
+
+
+
+
+
+
+    
+
+    <view class='{{sellmarket.length > 0 && (toView=="toSell") ? "result-right-list result-right-tosell":"notshow"}}' id="toSell">
+      <view class="nav-show">
+        <view class="nav-show-block"></view>
+        <text>供应商</text>
+      </view>
+
+    <!--onLongTap="phoneNumTap" 拨打电话  -->
+      <block a:for="{{sellmarket}}" a:key="{{index}}" >
+        <view class="result-right-listcontent" 
+                  data-phone="{{item.merchant_phone}}" 
+                  onLongTap='phoneNumTap'>
+          <block a:for="{{selllefttitle}}" 
+                 a:key="cell" 
+                 a:for-item="cellitem" 
+                 a:for-index="cellindex"
+                 >
+            <view class="list-content" >
+              <text class="list-left">{{cellitem}}</text>
+              <text class="list-right">{{item[sellrightlist[cellindex]]}}</text>
+            </view>
+          </block> 
+        </view>
+      </block>
+
+      <view class='searchmore'> 
+          <button class="'resule-left-btnmore'{{hasphone == 1 ? '  notshow':''}}{{selldataend == 1 ? '  notshow':''}}" 
+          open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"
+          >更多供应商...</button>
+          <button class="'resule-left-btnmore'{{hasphone == 0 ? '  notshow':''}}{{selldataend == 1 ? '  notshow':''}}"
+          onTap='getMoreSellMarket'
+          >更多供应商 ...</button>
+      </view>
+      <view class="{{selldataend == 1 ? 'bottom-show' : 'notshow'}}" >
+          <view class='bottom-line'>我是有底线的</view>
+      </view>
+    </view>
+
+    <view class='{{buymarket.length > 0 && (toView=="toBuy") ? "result-right-list result-right-tosell":"notshow"}}' id="toBuy">
+      <view class="nav-show">
+        <view class="nav-show-block"></view>
+        <text>求购信息</text>
+      </view>
+
+      <block a:for="{{buymarket}}" a:key="{{index}}">
+        <view class="result-right-listcontent">
+          <block a:for="{{buylefttitle}}" a:key="cell" a:for-item="cellitem" a:for-index="cellindex">
+            <view class="list-content">
+              <text selectable class="list-left">{{cellitem}}</text>
+              <text selectable class="list-right">{{item[buyrightlist[cellindex]]}}</text>
+            </view>
+          </block> 
+        </view>
+      </block>
+      <view class="{{buydataend == 1 ? 'bottom-show' : 'notshow'}}" >
+          <view class='bottom-line'>我也是有底线的</view>
+      </view>
+    </view>
+
+
+    <view class='{{toView=="toFeedback" ? "result-right-list result-right-tosell":"notshow"}}' id="toFeedback">
+      <view class="nav-show">
+        <view class="nav-show-block"></view>
+        <text>问题反馈</text>
+      </view>
+
+      <view class='feekbackinput'>
+        <form bindsubmit='feedBackBtn' >
+          <view class='bookmark'>
+            <block a:for="{{bookmark}}" a:key="index" a:for-item="item">
+                <text class="bookmark-list" onTap='inputmark' data-values="{{item}}">{{item}}</text>
+            </block> 
+          </view>
+          
+          <view class='feedback-body'>
+              <input type="text"
+                    maxlength=-1
+                    name="textarea"
+                    auto-height
+                    placeholder="输入反馈内容："
+                    value="{{textareavalue}}" 
+                    class='feed-input' 
+                    onInput="inputfeed"
+                    />
+            <button type="default" 
+              size="default"
+              class='feed-btn'
+              form-type="submit"
+                >提交</button>
+          </view>        
+          </form>
+      </view>
+    </view>
+
+
+    <view class="result-btn">
+      <button 
+        class="{{clickindex == 11?'resule-left-btn':'resule-left-list'}}"
+onTap="scrollToViewFnBtn" 
+        data-id="toSell" 
+        data-index="{{11}}"
+        >供货商</button>
+      <button class="{{clickindex == 12?'resule-left-btn':'resule-left-list'}}"                  
+            onTap="scrollToViewFnBtn" 
+            data-id="toBuy" 
+            data-index="{{12}}"
+      >需求市场</button>
+      <button class="{{clickindex == 13?'resule-left-btn':'resule-left-list'}}"                     
+            onTap="scrollToViewFnBtn" 
+            data-id="toFeedback" 
+            data-index="{{13}}"
+      >问题反馈</button>
+    </view>
+<!--open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"   -->
+  </scroll-view> 
+</view>

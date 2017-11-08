@@ -1,0 +1,398 @@
+/* pages/resule/index.wxss */
+page{
+  border: none;
+}
+.search{
+  width: 100%;
+  height:88rpx;
+}
+.search-body{
+  width:100%;
+  height:88rpx;
+  background:#36373A;
+  position:fixed;
+  z-index:2;
+  display:flex;
+  align-items:center;
+}
+.search-input{
+  width:60%;
+  margin-left:2%;
+  /* padding-left:8%;
+  padding-right: 12%; */
+  padding: 0 12% 0 8%;
+  height:56rpx;
+  /* display:inline-flex; */
+  
+  background:#FFFFFF;
+  border:1px solid #D8D8D8;
+  border-radius:10rpx;  
+  font-size:26rpx;
+  color:#666666;
+  letter-spacing:0.27px;
+  line-height:56rpx;
+  /* position:relative; */
+  /* top:8rpx; */
+
+}
+.search-btn{
+  display:inline-flex;
+  height:66rpx;
+  justify-content:center;
+  font-size:12pt;
+  position:relative;
+  width:17%;
+  align-items:center;
+  /* top:10rpx; */
+  color:#FFFFFF;
+}
+
+.search-icon,.cancel-icon{
+  display:inline-block;
+  position:absolute;
+  z-index: 2;
+}
+.search-icon{
+  left:4%;
+   top:32rpx; 
+}
+.cancel-icon{
+  right:21%;
+  top:28rpx;
+}
+
+.inputclear-icon{
+    display: inline-block;
+    position: absolute;
+    z-index: 3;
+    border: 1px solid transparent;
+    width: 22px;
+    height: 22px;
+    right: 21%;
+    top: 0.28rem;
+}
+
+.none-icon{
+  display: none;
+}
+
+
+/*未搜索状态  */
+.search-history{
+  width: 100%;
+}
+.search-history view{
+  padding:0 40rpx;
+  width:calc(100% - 80rpx);
+  height:89rpx;
+  border-bottom:1rpx solid #EEEEEE;
+  line-height:89rpx;
+  font-size: 14px;
+  color: #333333;
+  letter-spacing: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.search-history view:nth-child(1){
+  background-color: #F9F9F9;
+  font-size: 10pt;
+  color: #999999;
+}
+/*search-wrong  */
+.wrong-mes{
+  font-size:10pt;
+  color:#333333;
+  letter-spacing:0px;
+  line-height:28px;
+  text-align:center;
+  padding-top:100rpx;
+}
+
+/*多品牌处理  */
+.brand-content{
+  display: flex;
+  background: #fff;
+  padding: 10rpx 20rpx;
+  flex-direction:row;
+  flex-wrap:wrap;
+}
+.brand-imgname{
+  border: 1px solid transparent;
+  float: left;
+  text-align: center;
+  width: 98px;
+  height: 90px;
+}
+.brand-title{
+  background-color:#4A90E2;
+  text-align:center;
+  line-height:40px;
+  color:white;
+  font-size:11pt;
+}
+.brand-img{
+  width: 98px;
+  height: 58px;
+}
+
+/*==============  */
+
+.result{
+  display: flex;
+  flex-direction:column;
+  z-index:3;
+}
+
+.result-left{
+  display: inline-block;
+  /* padding:5px 0; */
+  position:fixed;
+  background-color:white;
+  z-index:7;
+  min-width:100%;
+  box-shadow: 0 1px 8px 0 rgba(0,0,0,0.4);
+  top:88rpx;
+
+}
+.result-left-position{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-around;
+  height: 80rpx;
+}
+
+.resule-left-list{
+  font-size:11pt;
+  color:#333333;
+  letter-spacing:0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.resule-left-listclick,.resule-left-btn{
+  color:#C8372B;
+  font-size:11pt;
+  letter-spacing:0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom:2px solid #C8372B;
+}
+
+.resule-left-btn{
+  border-bottom:transparent;
+}
+
+/* 获取更多供应商信息 */
+.resule-left-btnmore{
+  color:#C8372B;
+  font-size:11pt;
+  letter-spacing:0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* border-bottom:2px solid #C8372B; */
+  width:50%;
+}
+
+.result-right{
+  margin-top:35px;
+  display: inline-block;
+  width: 100%;
+  height:100vh;
+  overflow-y:auto;
+}
+.brands{
+  width:135rpx;
+  height:80rpx;
+  position:absolute;
+  right:0;
+}
+.result-right-list{
+  position: relative;
+  padding: 40rpx 16rpx 100rpx 16rpx;
+  z-index: 0;
+}
+.nav-show{
+ display: flex;
+ align-items: center;
+}
+.nav-show .nav-show-block{
+  width: 10rpx;
+  height: 28rpx;
+  background-color: #333333;
+}
+.nav-show text{
+  font-size: 14px;
+  color: #333333;
+  letter-spacing: 0px;
+  margin-left: 8rpx;
+}
+
+/*分别处理  基础信息 */
+
+.result-right-message .list-content{
+  display:flex;
+  width:94%;
+  overflow:hidden;
+  padding:12rpx 0 12rpx 0;
+  margin:4rpx auto;
+  border-bottom:1px dashed #d8d8d8;
+}
+
+.list-left{
+  font-size:14px;
+  color:#999999;
+  letter-spacing:0px;
+  margin-right: 5px;
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+  word-break: break-all;
+  width: 30%;
+}
+
+.list-right{
+  font-size:14px;
+  color:#333333;
+  letter-spacing:0px;
+  display: flex;
+  /* align-items: center; */
+  /* justify-content: center; */
+  word-break: break-all;
+  width: 70%;
+}
+
+.result-right-technology .list-left{
+  width: 100%;
+  padding-left:3%;
+}
+
+/*统一样式 父级处理  */
+.result-right-listcontent,.result-right-listtech{
+  background:#F6F6F6;
+  /* border:1rpx solid #D8D8D8; */
+  display:flex;
+  flex-direction:column;
+  padding:16rpx 0;
+  margin-top:20rpx;
+}
+.result-right-listcontent .list-content{
+  display:flex;
+  width:94%;
+  margin:4rpx auto;
+  overflow: hidden;
+}
+
+/*技术信息  */
+.result-right-technology .list-content{
+  display: flex;
+}
+
+.result-right-listtech{
+  border: 0;
+  margin: 0;
+}
+
+.result-right-listtech .list-content:nth-child(5n){
+  margin-top: 20rpx;
+}
+
+/*卖方市场  */
+/* .result-right-tosell {
+  padding-bottom: 50px;
+} */
+
+/*是否到底显示  */
+.bottom-show{
+  text-align:center;
+}
+.bottom-line{
+  border-bottom:1px dashed gray;
+  font-size:7pt;
+  padding:20rpx 0 6rpx 0;
+}
+/*问题反馈  */
+.feekbackinput{
+  margin:20rpx 0;
+}
+.feedback-body{
+  display:flex;
+  padding:20rpx 0 20rpx 0;
+}
+.feed-input{
+  height: 30px;
+  border:1px solid black;
+  padding:10rpx;
+  width:77%; 
+  border-radius: 10rpx;
+  z-index: 3;
+  font-size:10pt;
+  display:inline-flex;
+  /* margin: 10rpx 0 20rpx 0; */
+  /* display:flex;
+  flex-direction:row;
+  flex-wrap:wrap; */
+}
+.feed-btn{
+  /* height:80rpx;
+  margin:20rpx 0;
+  font-size:12pt; */
+  width:15%;
+  display:inline-flex;
+  height:40px;
+  font-size:10pt;
+  padding:10rpx;
+  margin:0 1%;
+  justify-content:center;
+}
+
+.searchmore{
+  margin: 30rpx 0;
+}
+
+/*书签  */
+.bookmark{
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+}
+.bookmark-list{
+    text-align: center;
+    border-radius: 4px;
+    font-size: 8pt;
+    color: #666666;
+    padding: 3px;
+    margin: 3px;
+    background-color: rgba(216,216,216,0.8);
+}
+
+/*添加图片  */
+.home-img{
+  width: 100%;
+  margin-top: 20vh;
+}
+
+.imageone,.imagetwo{
+  margin: 0 auto;
+  display: block;
+}
+
+.notshow{
+  display: none;
+}
+
+.result-btn{
+  display:flex;
+  position:fixed;
+  bottom:0;
+  justify-content: space-around;
+  width:100%;
+}
+
+.result-btn button{
+  width: 50%;
+}
